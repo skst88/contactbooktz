@@ -15,7 +15,7 @@ const INIT_STATE = {
 const reducer = (state = INIT_STATE, action) => {
   switch (action.type) {
     case "GET_CONTACTS":
-      return { ...state, contacts: action.payload }
+      return { ...state, contacts: action.payload };
     case "GET_CONTACT": {
       return { ...state, gottenContact: action.payload };
     }
@@ -42,7 +42,7 @@ const ContactContextProvider = (props) => {
     });
   };
 
-  //
+  //edit contacts
   const editContact = (newContact) => {
     dispatch({
       type: EDIT_CONTACT,
@@ -50,17 +50,18 @@ const ContactContextProvider = (props) => {
     });
   };
 
+  //save edited contacts
   const saveEditedContact = async (editContact) => {
     try {
-
+      //we get data from localstorage and do map
       const local = JSON.parse(localStorage.getItem("CONTACTS")).map((item) => {
         if (item.id === editContact.id) {
-          return editContact
+          return editContact;
         }
-        return item
-      })
+        return item;
+      });
+      //and send edited contacts to localstorage like 'local'
       localStorage.setItem("CONTACTS", JSON.stringify(local));
-
     } catch (e) {
       console.log(e);
     }
@@ -68,17 +69,18 @@ const ContactContextProvider = (props) => {
 
   const getContacts = () => {
     //save data from api to localstorage for further work with data
-    const local = JSON.parse(localStorage.getItem("CONTACTS"))
-    console.log(local)
-    let datas
+
+    const local = JSON.parse(localStorage.getItem("CONTACTS"));
+    console.log(local);
+    let datas;
     if (!local)
       axios
         .get("https://demo.sibers.com/users")
         .then((response) => {
           dispatch({
             type: "GET_CONTACTS",
-            payload: response.data
-          })
+            payload: response.data,
+          });
           localStorage.setItem("CONTACTS", JSON.stringify(response.data));
         })
         .catch((e) => {
@@ -87,10 +89,9 @@ const ContactContextProvider = (props) => {
     else {
       dispatch({
         type: "GET_CONTACTS",
-        payload: local
-      })
+        payload: local,
+      });
     }
-
   };
 
   return (

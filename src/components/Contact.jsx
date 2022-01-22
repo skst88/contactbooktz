@@ -2,13 +2,9 @@ import React, { useContext, useState } from "react";
 import {
   Button,
   Card,
-  Col,
   Container,
-  Form,
   FormControl,
   InputGroup,
-  ListGroup,
-  Row,
 } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { contactContext } from "../context/ContactContext";
@@ -22,11 +18,9 @@ const Contact = () => {
 
   let filteredContacts = (contacts || []).filter((item) => {
     // Convert to lower case for correct search
-    // console.log(item.name);
-    // console.log(item.name.toLowerCase().includes(value?.toLowerCase()))
+
     if (item.name)
       return item.name.toLowerCase().includes(value?.toLowerCase());
-
   });
 
   const navigate = useNavigate();
@@ -58,7 +52,7 @@ const Contact = () => {
   }
 
   return (
-    <>
+    <div className="main-page">
       <div className="search-sort">
         {/* Search all users from Sibers */}
         <InputGroup className="search-plchldr">
@@ -117,7 +111,7 @@ const Contact = () => {
           ))}
         </div>
       </Container>
-    </>
+    </div>
   );
 };
 

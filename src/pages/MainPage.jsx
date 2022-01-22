@@ -13,7 +13,6 @@ const MainPage = () => {
     <div>
       <div>
         <Contact />
-        {/* on the main page we call the LIST component */}
       </div>
     </div>
   );

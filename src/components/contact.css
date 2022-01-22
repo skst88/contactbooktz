@@ -1,3 +1,9 @@
+* {
+  font-family: "Libre Baskerville", serif;
+}
+.main-page {
+  background-color: #d7d7cb;
+}
 .search-sort {
   display: flex;
   justify-content: space-around;
@@ -8,6 +14,29 @@
   margin-right: 10px;
 }
 
+.button {
+  background-color: white;
+  border: 2px solid #555555;
+  color: #555555;
+}
+.button:hover {
+  background-color: #525e5e;
+  border: none;
+}
+
 .sort {
   margin-top: 30px;
+  background-color: #d7d7cb;
+  border-color: #555555;
+  color: #525e5e;
+}
+
+.sort:hover {
+  background-color: #525e5e;
+  border: none;
+}
+
+.edit-page {
+  background-color: #d7d7cb;
+  height: 100vh;
 }

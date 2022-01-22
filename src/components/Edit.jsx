@@ -1,12 +1,11 @@
 import * as yup from "yup";
 import { Formik } from "formik";
-import React, { useContext, useEffect, useState } from "react";
-import { Button, Form, FormControl } from "react-bootstrap";
+import React, { useContext, useEffect } from "react";
+import { Button, Form } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { contactContext } from "../context/ContactContext";
 
 const Edit = () => {
-  // const [newName, setNewName] = useState(gottenContact.name);
   const { gottenContact, editContact, saveEditedContact } =
     useContext(contactContext);
   const params = useParams();
@@ -21,14 +20,13 @@ const Edit = () => {
   const navigate = useNavigate();
 
   return (
-    <div>
-      <h2>Редактирование</h2>
+    <div className="edit-page">
+      <h2>Edit page</h2>
       {gottenContact ? (
         <Formik
           validationSchema={schema}
           onSubmit={(data, { resetForm }) => {
             saveEditedContact(data);
-            // resetForm()
             navigate("/");
           }}
           initialValues={gottenContact}
@@ -40,7 +38,7 @@ const Edit = () => {
               onSubmit={handleSubmit}
             >
               <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Название услуги</Form.Label>
+                <Form.Label>Name</Form.Label>
                 <Form.Control
                   type="text"
                   placeholder="Введите название услуги"
@@ -55,7 +53,7 @@ const Edit = () => {
                 </Form.Control.Feedback>
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Название услуги</Form.Label>
+                <Form.Label>User name</Form.Label>
                 <Form.Control
                   type="text"
                   placeholder="Введите название услуги"
@@ -70,7 +68,7 @@ const Edit = () => {
                 </Form.Control.Feedback>
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicEmail2">
-                <Form.Label>Цена услуги</Form.Label>
+                <Form.Label>Phone number</Form.Label>
                 <Form.Control
                   type="text"
                   placeholder="Введите цену услуги"
@@ -84,8 +82,8 @@ const Edit = () => {
                   {errors.phone}
                 </Form.Control.Feedback>
               </Form.Group>
-              <Button variant="primary" type="submit" а>
-                Отправить
+              <Button className="button" variant="primary" type="submit">
+                Send
               </Button>
             </Form>
           )}
@@ -94,22 +92,6 @@ const Edit = () => {
         <h2>Loading...</h2>
       )}
     </div>
-    // <div>
-    //   <FormControl
-    //     value={newName}
-    //     onChange={(e) => setNewName(e.target.value)}
-    //   />
-
-    //   <Button
-    //     className="button"
-    //     onClick={() => {
-    //       editContact({ ...gottenContact, name: newName });
-    //       navigate("/");
-    //     }}
-    //   >
-    //     Update
-    //   </Button>
-    // </div>
   );
 };
 

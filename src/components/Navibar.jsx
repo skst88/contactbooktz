@@ -1,14 +1,6 @@
 import { AiFillRead } from "react-icons/ai";
 import React from "react";
-import {
-  Button,
-  Container,
-  Form,
-  FormControl,
-  Nav,
-  Navbar,
-} from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Container, Nav, Navbar } from "react-bootstrap";
 
 const Navibar = () => {
   return (
