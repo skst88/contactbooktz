@@ -22,10 +22,11 @@ const Contact = () => {
 
   let filteredContacts = (contacts || []).filter((item) => {
     // Convert to lower case for correct search
-    console.log(value);
-    if (value !== undefined) {
+    // console.log(item.name);
+    // console.log(item.name.toLowerCase().includes(value?.toLowerCase()))
+    if (item.name)
       return item.name.toLowerCase().includes(value?.toLowerCase());
-    }
+
   });
 
   const navigate = useNavigate();
@@ -99,7 +100,6 @@ const Contact = () => {
                 <Card.Title> {item.name}</Card.Title>
                 <Card.Title> {item.phone}</Card.Title>
                 <Card.Text>{item.username}</Card.Text>
-                {console.log(item)}
                 <footer>
                   <small className="text-muted">{item.email}</small>
                 </footer>

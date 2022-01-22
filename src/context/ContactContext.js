@@ -8,12 +8,14 @@ const GET_CONTACT = "GET_CONTACT";
 const EDIT_CONTACT = "EDIT_CONTACT";
 
 const INIT_STATE = {
-  contacts: JSON.parse(localStorage.getItem("CONTACTS")), //take from our localstorage
+  contacts: null, //take from our localstorage
   gottenContact: null,
 };
 
 const reducer = (state = INIT_STATE, action) => {
   switch (action.type) {
+    case "GET_CONTACTS":
+      return { ...state, contacts: action.payload }
     case "GET_CONTACT": {
       return { ...state, gottenContact: action.payload };
     }
@@ -50,8 +52,15 @@ const ContactContextProvider = (props) => {
 
   const saveEditedContact = async (editContact) => {
     try {
-      await axios.patch(`users/${editContact.id}`, editContact);
-      getContact();
+
+      const local = JSON.parse(localStorage.getItem("CONTACTS")).map((item) => {
+        if (item.id === editContact.id) {
+          return editContact
+        }
+        return item
+      })
+      localStorage.setItem("CONTACTS", JSON.stringify(local));
+
     } catch (e) {
       console.log(e);
     }
@@ -59,14 +68,29 @@ const ContactContextProvider = (props) => {
 
   const getContacts = () => {
     //save data from api to localstorage for further work with data
-    axios
-      .get("https://demo.sibers.com/users")
-      .then((response) => {
-        localStorage.setItem("CONTACTS", JSON.stringify(response.data));
+    const local = JSON.parse(localStorage.getItem("CONTACTS"))
+    console.log(local)
+    let datas
+    if (!local)
+      axios
+        .get("https://demo.sibers.com/users")
+        .then((response) => {
+          dispatch({
+            type: "GET_CONTACTS",
+            payload: response.data
+          })
+          localStorage.setItem("CONTACTS", JSON.stringify(response.data));
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    else {
+      dispatch({
+        type: "GET_CONTACTS",
+        payload: local
       })
-      .catch((e) => {
-        console.log(e);
-      });
+    }
+
   };
 
   return (
