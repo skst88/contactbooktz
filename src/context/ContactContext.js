@@ -39,12 +39,22 @@ const ContactContextProvider = (props) => {
       payload: id,
     });
   };
+
   //
   const editContact = (newContact) => {
     dispatch({
       type: EDIT_CONTACT,
       payload: newContact,
     });
+  };
+
+  const saveEditedContact = async (editContact) => {
+    try {
+      await axios.patch(`users/${editContact.id}`, editContact);
+      getContact();
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const getContacts = () => {
@@ -64,6 +74,7 @@ const ContactContextProvider = (props) => {
       value={{
         contacts: state.contacts,
         gottenContact: state.gottenContact,
+        saveEditedContact,
         getContact,
         editContact,
         getContacts,

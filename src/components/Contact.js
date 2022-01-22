@@ -22,7 +22,10 @@ const Contact = () => {
 
   let filteredContacts = (contacts || []).filter((item) => {
     // Convert to lower case for correct search
-    return item.name.toLowerCase().includes(value.toLowerCase());
+    console.log(value);
+    if (value !== undefined) {
+      return item.name.toLowerCase().includes(value?.toLowerCase());
+    }
   });
 
   const navigate = useNavigate();
@@ -78,7 +81,6 @@ const Contact = () => {
         <div
           style={{
             display: "flex",
-
             flexDirection: "row",
             flexWrap: "wrap",
             justifyContent: "space-between",
