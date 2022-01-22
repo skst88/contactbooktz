@@ -1,20 +1,22 @@
 import React, { useContext, useState } from "react";
 import {
   Button,
+  Card,
+  Col,
   Container,
   Form,
   FormControl,
   InputGroup,
   ListGroup,
+  Row,
 } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { contactContext } from "./context/ContactContext";
-import { AiOutlineContacts } from "react-icons/ai";
+import { contactContext } from "../context/ContactContext";
+import "./contact.css";
 
 const Contact = () => {
-  //POCHEMU NE RABOTAET???
   const { contacts, getContact } = useContext(contactContext);
-  // console.log(contacts);
+
   // For search
   const [value, setValue] = useState("");
 
@@ -52,56 +54,68 @@ const Contact = () => {
   }
 
   return (
-    <div>
-      <Container>
-        <h1>
-          <AiOutlineContacts
-            style={{ width: "70px", height: "70px", marginRight: "40px" }}
-          />
-          Contact Book{" "}
-        </h1>
-        <InputGroup size="lg">
+    <>
+      <div className="search-sort">
+        {/* Search all users from Sibers */}
+        <InputGroup className="search-plchldr">
           <FormControl
             aria-label="Large"
             aria-describedby="inputGroup-sizing-sm"
-            placeholder="search"
+            placeholder="Search"
             onChange={(e) => setValue(e.target.value)}
           />
         </InputGroup>
+        {/* Sort contacts by alphabet */}
+        <Button
+          className="sort"
+          type="button"
+          onClick={() => setSortedField("name")}
+        >
+          Sort contacts
+        </Button>
+      </div>
+      <Container>
+        <div
+          style={{
+            display: "flex",
 
-        {/* //Sort */}
-
-        <button type="button" onClick={() => setSortedField("name")}>
-          alphabet
-        </button>
-
-        <ul>
+            flexDirection: "row",
+            flexWrap: "wrap",
+            justifyContent: "space-between",
+          }}
+        >
+          {/* All users from Sibers */}
           {filteredContacts.map((item) => (
-            <ListGroup
-              className="m-3 list-group"
-              as="ol"
-              numbered
+            <Card
               key={item.id}
+              style={{
+                width: "18rem",
+                marginTop: "15px",
+              }}
             >
-              <ListGroup.Item className="list-group-item">
-                {item.name}
-                <div className="list-group-item-buttons">
-                  <Button
-                    className="button"
-                    onClick={() => {
-                      getContact(item);
-                      navigate("/edit");
-                    }}
-                  >
-                    Edit
-                  </Button>
-                </div>
-              </ListGroup.Item>
-            </ListGroup>
+              <Card.Body>
+                <Card.Title> {item.name}</Card.Title>
+                <Card.Title> {item.phone}</Card.Title>
+                <Card.Text>{item.username}</Card.Text>
+                {console.log(item)}
+                <footer>
+                  <small className="text-muted">{item.email}</small>
+                </footer>
+                <Button
+                  className="button"
+                  onClick={() => {
+                    getContact(item);
+                    navigate(`/edit/${item.id}`);
+                  }}
+                >
+                  Edit
+                </Button>
+              </Card.Body>
+            </Card>
           ))}
-        </ul>
+        </div>
       </Container>
-    </div>
+    </>
   );
 };
 

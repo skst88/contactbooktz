@@ -1,0 +1,13 @@
+.search-sort {
+  display: flex;
+  justify-content: space-around;
+}
+.search-plchldr {
+  margin-top: 30px;
+  width: 30%;
+  margin-right: 10px;
+}
+
+.sort {
+  margin-top: 30px;
+}

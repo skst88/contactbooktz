@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Button, FormControl } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { contactContext } from "./context/ContactContext";
+import { contactContext } from "../context/ContactContext";
 
 const Edit = () => {
   const { gottenContact, editContact } = useContext(contactContext);

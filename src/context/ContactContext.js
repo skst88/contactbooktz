@@ -1,4 +1,5 @@
 import React, { useReducer } from "react";
+import axios from "axios";
 
 export const contactContext = React.createContext();
 
@@ -45,6 +46,19 @@ const ContactContextProvider = (props) => {
       payload: newContact,
     });
   };
+
+  const getContacts = () => {
+    //save data from api to localstorage for further work with data
+    axios
+      .get("https://demo.sibers.com/users")
+      .then((response) => {
+        localStorage.setItem("CONTACTS", JSON.stringify(response.data));
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
   return (
     <contactContext.Provider
       value={{
@@ -52,6 +66,7 @@ const ContactContextProvider = (props) => {
         gottenContact: state.gottenContact,
         getContact,
         editContact,
+        getContacts,
       }}
     >
       {props.children}

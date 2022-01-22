@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import ContactContextProvider from "./components/context/ContactContext";
+import ContactContextProvider from "./context/ContactContext";
 import Navibar from "./components/Navibar";
 import EditPage from "./pages/EditPage";
 import MainPage from "./pages/MainPage";
@@ -12,7 +12,7 @@ const MyRoutes = () => {
         <Navibar />
         <Routes>
           <Route path="/" element={<MainPage />} />
-          <Route path="/edit" element={<EditPage />} />
+          <Route path="/edit/:id" element={<EditPage />} />
         </Routes>
       </BrowserRouter>
     </ContactContextProvider>

@@ -1,19 +1,9 @@
-import axios from "axios";
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import Contact from "../components/Contact";
+import { contactContext } from "../context/ContactContext";
 
 const MainPage = () => {
-  const getContacts = () => {
-    //save data from api to localstorage for further work with data
-    axios
-      .get("https://demo.sibers.com/users")
-      .then((response) => {
-        localStorage.setItem("CONTACTS", JSON.stringify(response.data));
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  };
+  const { getContacts } = useContext(contactContext);
 
   useEffect(() => {
     getContacts();
